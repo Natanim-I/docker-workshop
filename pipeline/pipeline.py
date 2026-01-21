@@ -5,7 +5,7 @@ import pandas as pd
 day = sys.argv[1]
 print(f"Hello Pipeline, Running pipeline for day:- {day}")
 
-df = pd.DataFrame({"A": [1,2], "B": [3,4]})
+df = pd.DataFrame({"num_passenger": [1,2], "days": [3,4]})
 df["day"] = day
 print(df.head())
 
