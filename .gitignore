@@ -209,3 +209,6 @@ __marimo__/
 #Parquet
 *.parquet
 *.csv
+
+pipeline/secrets/*
+.env_encoded
