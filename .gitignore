@@ -211,4 +211,5 @@ __marimo__/
 *.csv
 
 pipeline/secrets/*
+data-warehouse/gcs.json
 .env_encoded
