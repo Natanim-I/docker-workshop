@@ -1,4 +1,9 @@
- select
+with source as (
+    select * from {{ source('raw_data', 'yellow_tripdata') }}
+),
+
+renamed as (
+    select
         -- identifiers (standardized naming for consistency across yellow/green)
         cast(VendorID as integer) as vendor_id,
         cast(RatecodeID as integer) as rate_code_id,
@@ -13,7 +18,6 @@
         cast(store_and_fwd_flag as string) as store_and_fwd_flag,
         cast(passenger_count as integer) as passenger_count,
         cast(trip_distance as numeric) as trip_distance,
-        1 as trip_type,
 
         -- payment info
         cast(fare_amount as numeric) as fare_amount,
@@ -22,10 +26,17 @@
         cast(tip_amount as numeric) as tip_amount,
         cast(tolls_amount as numeric) as tolls_amount,
         cast(improvement_surcharge as numeric) as improvement_surcharge,
-        0 as ehail_fee,
         cast(total_amount as numeric) as total_amount,
         cast(payment_type as integer) as payment_type
 
-    from {{source('raw_data', 'yellow_tripdata')}}
+    from source
     -- Filter out records with null vendor_id (data quality requirement)
-    where VendorID is not null
+    where vendorid is not null
+)
+
+select * from renamed
+
+-- Sample records for dev environment using deterministic date filter
+{% if target.name == 'dev' %}
+where pickup_datetime >= '2019-01-01' and pickup_datetime < '2019-02-01'
+{% endif %}
