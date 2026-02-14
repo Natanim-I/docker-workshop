@@ -1,5 +1,5 @@
 with trips_unioned as (
-    select * from {{ref('int_trips_unions')}}
+    select * from {{ref('int_trips_unioned')}}
 ),
 
 vendors as (
