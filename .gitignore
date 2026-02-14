@@ -208,7 +208,8 @@ __marimo__/
 
 #Parquet
 *.parquet
-*.csv
+./pipeline/*.csv
+
 
 pipeline/secrets/*
 data-warehouse/gcs.json
